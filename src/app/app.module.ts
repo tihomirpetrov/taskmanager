@@ -6,17 +6,20 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskFormComponent } from './components/task-form/task-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    TaskListComponent,
-    TaskFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HomeComponent,
+    TaskListComponent,
+    TaskFormComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
