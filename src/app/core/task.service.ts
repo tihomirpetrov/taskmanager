@@ -16,7 +16,7 @@ export class TaskService {
     return this.taskSubject.asObservable();
   }
 
-  addTask(task: Task) {
+  addTask(task: Omit<Task, 'id' | 'completed'>) {
     this.tasks.push({...task, id: Date.now(), completed: false});
     this.taskSubject.next(this.tasks);
   }
@@ -30,6 +30,11 @@ export class TaskService {
 
   deleteTask(id: number) {
     this.tasks = this.tasks.filter(t => t.id !== id);
+    this.taskSubject.next(this.tasks);
+  }
+
+  updateTask(updatedTask: Task) {
+    this.tasks = this.tasks.map(t => t.id === updatedTask.id ? updatedTask : t);
     this.taskSubject.next(this.tasks);
   }
 }

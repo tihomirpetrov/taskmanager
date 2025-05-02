@@ -6,6 +6,9 @@
     <p>{{ task.description }}</p>
   </mat-card-content>
   <mat-card-actions>
+    <button mat-button color="primary" (click)="editTask(task)">
+      Edit
+    </button>
     <button mat-button color="warn" (click)="remove(task.id)">
       Delete
     </button>

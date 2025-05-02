@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Task} from 'src/app/core/task.model';
 import {TaskService} from '../../core/task.service';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatCardModule, MatCheckboxModule, MatButtonModule],
 })
 export class TaskListComponent implements OnInit {
+  @Output() edit = new EventEmitter<Task>();
   tasks: Task[] = [];
 
   constructor(private taskService: TaskService) {
@@ -29,5 +30,9 @@ export class TaskListComponent implements OnInit {
 
   remove(id: number) {
     this.taskService.deleteTask(id);
+  }
+
+  editTask(task: Task) {
+    this.edit.emit(task);
   }
 }
