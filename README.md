@@ -1,6 +1,7 @@
 # TaskManager
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+![img.png](img.png)
+This is a simple Task Manager application built with Angular and Material.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
 
 ## Development server
 
