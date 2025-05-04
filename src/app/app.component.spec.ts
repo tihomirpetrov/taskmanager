@@ -19,10 +19,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('task-manager');
   });
 
-  it('should render title', () => {
+  it('should render toolbar title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('task-manager app is running!');
+    expect(compiled.querySelector('mat-toolbar span')?.textContent).toContain('Task Manager');
   });
 });
