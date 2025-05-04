@@ -2,17 +2,18 @@
 
 ![Task Manager Screenshot](img.png)
 
-**TaskManager** is a lightweight task management web application built with [Angular](https://angular.io/) and [Angular Material](https://material.angular.io/). It allows users to create, edit, and delete tasks through a clean and responsive user interface.
+**TaskManager** is a single-page web application built with Angular (v19) and Angular Material. It delivers an intuitive, responsive interface for creating, editing, completing, and deleting tasks. All data is automatically persisted in your browser's localStorage to survive page reloads.
 
 ---
 
 ## 🚀 Features
 
-- ✅ Add new tasks
+- ✅ Add and manage tasks through a dynamic form
 - 📝 Edit existing tasks
-- 🗑️ Delete tasks
-- 🎨 Clean UI with Angular Material
-- ⚙️ Modular architecture and maintainable codebase
+- 🎯 Mark tasks as complete or undo completion
+- 🗑️ Remove tasks with one click
+- 💾 Automatic persistence in localStorage
+- 📱 Fully responsive UI built on Angular Material
 
 ---
 

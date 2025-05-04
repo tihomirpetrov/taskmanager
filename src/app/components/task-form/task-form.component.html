@@ -10,6 +10,6 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-    Add Task
+    {{ editingTask() ? 'Edit Task' : 'Add Task' }}
   </button>
 </form>

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {Task} from './task.model';
 import {BehaviorSubject, Observable} from 'rxjs';
 
@@ -6,10 +6,16 @@ import {BehaviorSubject, Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class TaskService {
+  selectedTask = signal<Task | null>(null);
   private tasks: Task[] = [];
   private taskSubject = new BehaviorSubject<Task[]>(this.tasks);
 
   constructor() {
+    const saved = localStorage.getItem('tasks');
+    if (saved) {
+      this.tasks = JSON.parse(saved);
+      this.taskSubject.next(this.tasks);
+    }
   }
 
   getTasks(): Observable<Task[]> {
@@ -19,6 +25,7 @@ export class TaskService {
   addTask(task: Omit<Task, 'id' | 'completed'>) {
     this.tasks.push({...task, id: Date.now(), completed: false});
     this.taskSubject.next(this.tasks);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   toggleComplete(id: number) {
@@ -26,15 +33,18 @@ export class TaskService {
       t.id === id ? {...t, completed: !t.completed} : t
     );
     this.taskSubject.next(this.tasks);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   deleteTask(id: number) {
     this.tasks = this.tasks.filter(t => t.id !== id);
     this.taskSubject.next(this.tasks);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
   updateTask(updatedTask: Task) {
     this.tasks = this.tasks.map(t => t.id === updatedTask.id ? updatedTask : t);
     this.taskSubject.next(this.tasks);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 }

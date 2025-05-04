@@ -8,8 +8,8 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <h2>About</h2>
-    <p>This is a simple Task Manager application built with Angular and Material.</p>
+    <p>This is a simple Task Manager application built with Angular Material.</p>
   `,
   styleUrls: ['./about.component.scss'],
 })
-export class AboutComponent {} 
+export class AboutComponent {}

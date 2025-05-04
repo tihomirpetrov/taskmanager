@@ -10,14 +10,4 @@ import { Task } from '../../core/task.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  selectedTask: Task | null = null;
-
-  onEdit(task: Task) {
-    this.selectedTask = task;
-  }
-
-  onSaved() {
-    this.selectedTask = null;
-  }
-}
+export class HomeComponent {}

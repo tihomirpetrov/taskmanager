@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, inject, effect} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../../core/task.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,47 +10,41 @@ import { Task } from '../../core/task.model';
 
 @Component({
   selector: 'app-task-form',
-  templateUrl: './task-form.component.html',
-  styleUrls: ['./task-form.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  templateUrl: './task-form.component.html',
+  styleUrls: ['./task-form.component.scss'],
 })
-export class TaskFormComponent implements OnChanges {
-  @Input() initialTask: Task | null = null;
-  @Output() saved = new EventEmitter<void>();
+export class TaskFormComponent {
+  private taskService = inject(TaskService);
+  readonly editingTask = this.taskService.selectedTask;
   form: FormGroup;
-
-  constructor(private fb: FormBuilder,
-              private taskService: TaskService) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      title: ['', [Validators.required]],
+      title: ['', Validators.required],
       description: [''],
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['initialTask']) {
-      if (this.initialTask) {
-        this.form.patchValue({
-          title: this.initialTask.title,
-          description: this.initialTask.description
-        });
+    effect(() => {
+      const t = this.taskService.selectedTask();
+      if (t) {
+        this.form.patchValue({ title: t.title, description: t.description });
       } else {
         this.form.reset();
       }
-    }
+    });
   }
 
   submit() {
     if (this.form.valid) {
-      const values = this.form.value as {title: string; description: string};
-      if (this.initialTask) {
-        this.taskService.updateTask({ ...this.initialTask, ...values });
+      const values = this.form.value as Pick<Task, 'title' | 'description'>;
+      const t = this.taskService.selectedTask();
+      if (t) {
+        this.taskService.updateTask({ ...t, ...values });
+        this.taskService.selectedTask.set(null);
       } else {
         this.taskService.addTask(values);
+        this.form.reset();
       }
-      this.form.reset()
-      this.saved.emit();
     }
   }
 }

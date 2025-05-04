@@ -1,4 +1,4 @@
-<mat-card *ngFor="let task of tasks" style="margin-bottom: 1rem;">
+<mat-card *ngFor="let task of tasks" style="margin-bottom: 1rem;" [class.completed]="task.completed">
   <mat-card-content>
     <mat-checkbox [checked]="task.completed" (change)="toggle(task.id)">
       {{ task.title }}
@@ -8,6 +8,9 @@
   <mat-card-actions>
     <button mat-button color="primary" (click)="editTask(task)">
       Edit
+    </button>
+    <button mat-button color="accent" (click)="toggle(task.id)">
+      {{ task.completed ? 'Undo' : 'Finish' }}
     </button>
     <button mat-button color="warn" (click)="remove(task.id)">
       Delete
