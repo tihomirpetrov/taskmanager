@@ -1,0 +1,36 @@
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">Id</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by title">Title</th>
+    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef >Description</th>
+    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="start">
+    <th mat-header-cell *matHeaderCellDef >Start</th>
+    <td mat-cell *matCellDef="let element">{{ element.start | date: 'dd.MM.yyyy' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="end">
+    <th mat-header-cell *matHeaderCellDef >End</th>
+    <td mat-cell *matCellDef="let element">{{ element.end | date: 'dd.MM.yyyy'  }}</td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="completed">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by completed">Completed</th>
+    <td mat-cell *matCellDef="let element">{{ element.completed ? 'Yes' : 'No' }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

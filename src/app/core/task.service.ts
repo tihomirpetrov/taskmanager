@@ -22,8 +22,8 @@ export class TaskService {
     return this.taskSubject.asObservable();
   }
 
-  addTask(task: Omit<Task, 'id' | 'completed'>) {
-    this.tasks.push({...task, id: Date.now(), completed: false});
+  addTask(task: Omit<Task, 'id' | 'completed' | 'start' | 'end'>) {
+    this.tasks.push({...task, id: Date.now(), start: new Date(), end: new Date(), completed: false});
     this.taskSubject.next(this.tasks);
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
